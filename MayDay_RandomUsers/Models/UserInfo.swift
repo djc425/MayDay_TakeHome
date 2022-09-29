@@ -7,10 +7,12 @@
 
 import Foundation
 
+//Main object which we'll use to pull data in from the network call
 struct UserInfo: Codable {
     var results: [Results]
 }
 
+//Results object which has the following properties
 struct Results: Codable {
     var gender: String
     var name: UserName
@@ -18,12 +20,14 @@ struct Results: Codable {
     var picture: UserPictures
 }
 
+//Unpacking the name properties
 struct UserName: Codable {
     var title: String
     var first: String
     var last: String
 }
 
+//Unpacking the image properties
 struct UserPictures: Codable {
     var large: String
     var medium: String

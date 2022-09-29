@@ -8,10 +8,18 @@
 import Foundation
 import UIKit
 
+protocol UserCellDelegate: AnyObject {
+
+}
+
 class UserCell: UITableViewCell {
 
+    //Cell Identifer
     static let identifier = "userCell"
 
+    weak var delegate: UserCellDelegate?
+
+    //Pass this infrom our Tableview delegate methods
      var userInfo: ParsedUser? {
         didSet{
             userName.text = userInfo?.name
@@ -30,13 +38,16 @@ class UserCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-
+    //MARK: Cell's 3 UI properties
     private let userImage: UIImageView = {
         let userImage = UIImageView()
         userImage.contentMode = .scaleAspectFit
-        userImage.layer.cornerRadius = 30
+        userImage.layer.cornerRadius = 35
         userImage.layer.masksToBounds = true
-      //  userImage.clipsToBounds = true
+       // userImage.clipsToBounds = true
+        userImage.frame.size.width = 50
+        userImage.frame.size.height = 50
+
         userImage.translatesAutoresizingMaskIntoConstraints = false
         return userImage
     }()
@@ -60,7 +71,13 @@ class UserCell: UITableViewCell {
     }()
 
 
+    //MARK: Configure the layout of the cell
     private func configureLayout(){
+        self.backgroundColor = .clear
+        self.selectedBackgroundView?.backgroundColor = .systemGray.withAlphaComponent(0.1)
+        self.layer.cornerRadius = 20
+        self.clipsToBounds = true
+       // self.frame.size.height = 120
         contentView.addSubview(userImage)
         contentView.addSubview(userName)
         contentView.addSubview(emailLabel)

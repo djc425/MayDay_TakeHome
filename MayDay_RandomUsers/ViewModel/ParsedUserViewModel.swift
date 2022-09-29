@@ -7,14 +7,14 @@
 
 import Foundation
 
-protocol UserViewModelDelegate: AnyObject {
-    func updateUser()
+protocol ParsedUserViewModelDelegate: AnyObject {
+    func updateTable()
 
     func handleError(error: UserError)
 }
 
 
-class UserViewModel {
+class ParsedUserViewModel {
 
     var networkManager: NetworkManager
 
@@ -24,8 +24,7 @@ class UserViewModel {
         self.networkManager = networkManager
     }
 
-    weak var delegate: UserViewModelDelegate?
-
+    weak var delegate: ParsedUserViewModelDelegate?
 
     func loadUsers(){
         networkManager.fetchUsers { result in
@@ -35,10 +34,8 @@ class UserViewModel {
                 self.delegate?.handleError(error: error)
             case.success(let user):
                 self.parsedUsers = self.networkManager.parseUsers(from: user)
-                self.delegate?.updateUser()
+                self.delegate?.updateTable()
             }
         }
     }
-
-
 }

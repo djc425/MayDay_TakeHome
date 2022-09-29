@@ -9,32 +9,29 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    //instance of our TableView View
+    // Instance of our TableView View
     let tableView = TableView()
 
-    // instance of our ViewModel
-    var userViewModel: UserViewModel
+    // Instance of our ViewModel
+    var userViewModel: ParsedUserViewModel
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // set the delegate and datasource to be the ViewController
+        // Set the delegate and datasource to be the ViewController
         tableView.tableView.delegate = self
         tableView.tableView.dataSource = self
+        tableView.loadingSpinner.startAnimating()
 
-        //register the custom cell which is used in an extension below
+        // Register the custom cell which is used in an extension below
         tableView.tableView.register(UserCell.self, forCellReuseIdentifier: UserCell.identifier)
 
+        // Styling the navBar
         title = "20 Random Users"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshUsers))
     }
 
-    //Before the view appears we'll load in our users to the ViewModel
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        userViewModel.loadUsers()
-    }
-
-    init(model: UserViewModel) {
+    init(model: ParsedUserViewModel) {
         self.userViewModel = model
         super.init(nibName: nil, bundle: nil)
         self.userViewModel.delegate = self
@@ -44,13 +41,15 @@ class ViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-
+    @objc func refreshUsers(){
+        userViewModel.loadUsers()
+        tableView.loadingSpinner.startAnimating()
+    }
 }
 
 // MARK: TableView Delegate and DataSource methods
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension ViewController: UITableViewDelegate, UITableViewDataSource, UserCellDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
        return userViewModel.parsedUsers.count
     }
 
@@ -61,16 +60,31 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
 
         let displayedUser = userViewModel.parsedUsers[indexPath.row]
         cell.userInfo = displayedUser
+        cell.delegate = self
 
         return cell
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.height * 0.1
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = DetailViewController()
+        let userDetail = userViewModel.parsedUsers[indexPath.row]
+        
+
+        navigationController?.pushViewController(detailVC, animated: true)
+    }
+
 }
 
 // MARK: ViewModel Delegate methods
-extension ViewController: UserViewModelDelegate {
-    func updateUser() {
+extension ViewController: ParsedUserViewModelDelegate {
+    func updateTable() {
         DispatchQueue.main.async {
             self.tableView.tableView.reloadData()
+            self.tableView.loadingSpinner.stopAnimating()
         }
     }
 
@@ -93,11 +107,13 @@ extension ViewController {
     override func loadView() {
         view = UIView()
         view.addSubview(tableView)
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 234/255, green: 96/255, blue: 127/255, alpha: 1.0)
+
+        //decided to put this here because originally I had it in viewWillAppear, but when I navigate back to this view I noticed it kept getting called and refreshing the table.
+        userViewModel.loadUsers()
 
         NSLayoutConstraint.activate([
-
-            tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 5),
             tableView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
