@@ -64,18 +64,19 @@ class NetworkManager {
         for user in user.results {
             let userName = "\(user.name.title) \(user.name.first) \(user.name.last)"
             let userEmail = user.email
-            let userImageThumbanil = createImage(from: user.picture.thumbnail)
+            let userImageMedium = createImage(from: user.picture.medium)
             let userImageLarge = createImage(from: user.picture.large)
+            let userAddress = "\(user.location.street.number) \(user.location.street.name)\n\(user.location.city), \(user.location.state)\n\(user.location.country)"
 
-            let newUser = ParsedUser(name: userName, email: userEmail, thumbnailImage: userImageThumbanil, largeImage: userImageLarge)
+            let newUser = ParsedUser(name: userName, email: userEmail, userImageForCell: userImageMedium, largeImage: userImageLarge, streetAddress: userAddress)
 
             allUsers.append(newUser)
-
         }
         return allUsers
     }
 
     func createImage(from: String) -> UIImage {
+        
         let image = UIImage()
 
             if let url = URL(string: from) {

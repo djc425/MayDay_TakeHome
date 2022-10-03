@@ -28,6 +28,8 @@ class ViewController: UIViewController {
         // Styling the navBar
         title = "20 Random Users"
         navigationController?.navigationBar.prefersLargeTitles = true
+
+        // Refresh bar button to get a new set of 20 users
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshUsers))
     }
 
@@ -48,7 +50,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: TableView Delegate and DataSource methods
-extension ViewController: UITableViewDelegate, UITableViewDataSource, UserCellDelegate {
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
        return userViewModel.parsedUsers.count
     }
@@ -60,23 +62,23 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, UserCellDe
 
         let displayedUser = userViewModel.parsedUsers[indexPath.row]
         cell.userInfo = displayedUser
-        cell.delegate = self
 
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.height * 0.1
+        return 100
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
         let userDetail = userViewModel.parsedUsers[indexPath.row]
-        
+
+        detailVC.detailView.detailInfo = userDetail
+        detailVC.title = userDetail.name
 
         navigationController?.pushViewController(detailVC, animated: true)
     }
-
 }
 
 // MARK: ViewModel Delegate methods

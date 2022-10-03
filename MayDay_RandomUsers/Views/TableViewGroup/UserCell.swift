@@ -8,23 +8,17 @@
 import Foundation
 import UIKit
 
-protocol UserCellDelegate: AnyObject {
-
-}
-
 class UserCell: UITableViewCell {
 
     //Cell Identifer
     static let identifier = "userCell"
-
-    weak var delegate: UserCellDelegate?
 
     //Pass this infrom our Tableview delegate methods
      var userInfo: ParsedUser? {
         didSet{
             userName.text = userInfo?.name
             emailLabel.text = userInfo?.email
-            userImage.image = userInfo?.thumbnailImage
+            userImage.image = userInfo?.userImageForCell
         }
     }
 
@@ -41,13 +35,10 @@ class UserCell: UITableViewCell {
     //MARK: Cell's 3 UI properties
     private let userImage: UIImageView = {
         let userImage = UIImageView()
-        userImage.contentMode = .scaleAspectFit
-        userImage.layer.cornerRadius = 35
+        userImage.contentMode = .scaleAspectFill
+        userImage.layer.cornerRadius = 30
         userImage.layer.masksToBounds = true
-       // userImage.clipsToBounds = true
-        userImage.frame.size.width = 50
-        userImage.frame.size.height = 50
-
+        userImage.backgroundColor = .systemMint
         userImage.translatesAutoresizingMaskIntoConstraints = false
         return userImage
     }()
@@ -56,7 +47,7 @@ class UserCell: UITableViewCell {
         let userName = UILabel()
         userName.textColor = .label
         userName.font = UIFont.preferredFont(forTextStyle: .body)
-
+        userName.adjustsFontForContentSizeCategory = true
         userName.translatesAutoresizingMaskIntoConstraints = false
         return userName
     }()
@@ -65,7 +56,7 @@ class UserCell: UITableViewCell {
         let email = UILabel()
         email.textColor = .secondaryLabel
         email.font = UIFont.preferredFont(forTextStyle: .caption1)
-
+        email.adjustsFontForContentSizeCategory = true
         email.translatesAutoresizingMaskIntoConstraints = false
         return email
     }()
@@ -77,18 +68,15 @@ class UserCell: UITableViewCell {
         self.selectedBackgroundView?.backgroundColor = .systemGray.withAlphaComponent(0.1)
         self.layer.cornerRadius = 20
         self.clipsToBounds = true
-       // self.frame.size.height = 120
         contentView.addSubview(userImage)
         contentView.addSubview(userName)
         contentView.addSubview(emailLabel)
 
         NSLayoutConstraint.activate([
-
             userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
-            userImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.2),
-         //   userImage.heightAnchor.constraint(equalTo: userImage.widthAnchor),
+            userImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
 
             userName.topAnchor.constraint(equalTo: userImage.topAnchor, constant: 10),
             userName.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 25),

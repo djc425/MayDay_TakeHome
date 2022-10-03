@@ -11,19 +11,23 @@ class DetailViewController: UIViewController {
 
     let detailView = DetailView()
 
-    let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemRed]
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
-      //  navigationController?.navigationBar.titleTextAttributes = textAttributes
-        title = "Test"
-        view.backgroundColor = .systemTeal
-        // Do any additional setup after loading the view.
     }
+}
 
-    
 
+extension DetailViewController {
+    override func loadView() {
+        view = UIView()
+        view.addSubview(detailView)
+        view.backgroundColor = .systemPurple
+
+        NSLayoutConstraint.activate([
+            detailView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            detailView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            detailView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            detailView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+    }
 }

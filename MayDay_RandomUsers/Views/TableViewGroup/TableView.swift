@@ -51,7 +51,6 @@ class TableView: UIView {
         self.layer.masksToBounds = true
 
         NSLayoutConstraint.activate([
-
             loadingSpinner.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             loadingSpinner.centerYAnchor.constraint(equalTo: self.centerYAnchor),
 
@@ -59,7 +58,6 @@ class TableView: UIView {
             tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-
         ])
     }
 }

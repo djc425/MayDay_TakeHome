@@ -17,6 +17,7 @@ struct Results: Codable {
     var gender: String
     var name: UserName
     var email: String
+    var location: UserAddress
     var picture: UserPictures
 }
 
@@ -27,11 +28,29 @@ struct UserName: Codable {
     var last: String
 }
 
+struct UserAddress: Codable {
+    var street: UserStreet
+    var city: String
+    var state: String
+    var country: String
+    var coordinates: UserCoordinates
+}
+
+
+struct UserStreet: Codable {
+    var number: Int
+    var name: String
+}
+
+struct UserCoordinates: Codable {
+    var latitude: String
+    var longitude: String
+}
+
 //Unpacking the image properties
 struct UserPictures: Codable {
     var large: String
     var medium: String
-    var thumbnail: String
 }
 
 
