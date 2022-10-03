@@ -133,6 +133,7 @@ extension ViewController {
         //decided to put this here because originally I had it in viewWillAppear, but when I navigate back to this view I noticed it kept getting called and refreshing the table.
         userViewModel.loadUsers()
 
+        // MARK: Constraints based on device
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
             // If the device being used is an iPad we'll narrow the width of the tableViewLayout View
             NSLayoutConstraint.activate([

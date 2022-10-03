@@ -84,7 +84,9 @@ class UserCell: UITableViewCell {
     private var compactConstraints: [NSLayoutConstraint] = []
     private var regularConstraints: [NSLayoutConstraint] = []
 
+    // MARK: UITraitCollection layout constraint for regular or compact
     private func setUpConstraints(){
+        // Constraints based on device
         //For iPad
         regularConstraints.append(contentsOf: [
             userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
@@ -114,6 +116,7 @@ class UserCell: UITableViewCell {
         ])
     }
 
+    // MARK: UITraitCollection layout constraint conditionals
     private func layoutBasedOnTrait(traitCollection: UITraitCollection) {
 
         if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
