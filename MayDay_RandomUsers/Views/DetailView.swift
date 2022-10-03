@@ -80,6 +80,9 @@ class DetailView: UIView {
         self.addSubview(heroImage)
         self.addSubview(nameLabel)
         self.addSubview(address)
+        self.backgroundColor = .systemGray3
+        self.layer.cornerRadius = 35
+        self.layer.masksToBounds = true
 
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
             NSLayoutConstraint.activate([

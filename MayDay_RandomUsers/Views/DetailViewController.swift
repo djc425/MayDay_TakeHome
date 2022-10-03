@@ -32,7 +32,7 @@ extension DetailViewController {
         view.addSubview(detailView)
 
 
-        view.backgroundColor = .systemPurple
+        view.backgroundColor = UIColor(red: 234/255, green: 96/255, blue: 127/255, alpha: 1.0)
 
         NSLayoutConstraint.activate([
             detailView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
