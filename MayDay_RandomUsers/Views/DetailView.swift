@@ -19,7 +19,6 @@ class DetailView: UIView {
         }
     }
 
-
     let heroImage: UIImageView = {
         let heroImage = UIImageView()
         heroImage.contentMode = .scaleAspectFit
@@ -35,6 +34,7 @@ class DetailView: UIView {
         name.textAlignment = .left
         name.textColor = .label
         name.font = UIFont.preferredFont(forTextStyle: .title1)
+        name.adjustsFontForContentSizeCategory = true
 
         name.translatesAutoresizingMaskIntoConstraints = false
         return name
@@ -45,6 +45,7 @@ class DetailView: UIView {
         address.textAlignment = .left
         address.textColor = .secondaryLabel
         address.font = UIFont.preferredFont(forTextStyle: .title2)
+        address.adjustsFontForContentSizeCategory = true
         address.numberOfLines = 3
 
         address.translatesAutoresizingMaskIntoConstraints = false
@@ -56,9 +57,9 @@ class DetailView: UIView {
         email.textAlignment = .left
         email.textColor = .secondaryLabel
         email.font = UIFont.preferredFont(forTextStyle: .title3)
+        email.adjustsFontForContentSizeCategory = true
         email.isUserInteractionEnabled = true
         email.textColor = .systemBlue
-        
 
         email.translatesAutoresizingMaskIntoConstraints = false
         return email
@@ -98,6 +99,7 @@ class DetailView: UIView {
         } else if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
             nameLabel.textAlignment = .center
             address.textAlignment = .center
+            // If the user is on an iPad we'll add the emailAddress so they can tap and send an email (note that it currently shows alert as placeholder)
             self.addSubview(emailAddress)
 
             NSLayoutConstraint.activate([

@@ -24,6 +24,7 @@ class UserCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
         configureUI()
         setUpConstraints()
         layoutBasedOnTrait(traitCollection: UIScreen.main.traitCollection)
@@ -62,7 +63,7 @@ class UserCell: UITableViewCell {
     private let emailLabel: UILabel = {
         let email = UILabel()
         email.textColor = .secondaryLabel
-        email.font = UIFont.preferredFont(forTextStyle: .caption1)
+        email.font = UIFont.preferredFont(forTextStyle: .footnote)
         email.adjustsFontForContentSizeCategory = true
         email.translatesAutoresizingMaskIntoConstraints = false
         return email
