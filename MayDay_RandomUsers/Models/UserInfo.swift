@@ -34,19 +34,12 @@ struct UserAddress: Codable {
     var city: String
     var state: String
     var country: String
-    var coordinates: UserCoordinates
 }
 
 // Handling the Street properties of the location
 struct UserStreet: Codable {
     var number: Int
     var name: String
-}
-
-// Handling the Coordinates properties of the location
-struct UserCoordinates: Codable {
-    var latitude: String
-    var longitude: String
 }
 
 // Handling the image properties

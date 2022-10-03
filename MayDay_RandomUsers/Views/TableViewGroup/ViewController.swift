@@ -140,7 +140,7 @@ extension ViewController {
                 tableViewLayout.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -100),
                 tableViewLayout.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             ])
-        } else {
+        } else if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
             // If the device is an iPhone we'll use the full width of the layoutMargins
             NSLayoutConstraint.activate([
                 tableViewLayout.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 5),

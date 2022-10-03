@@ -15,8 +15,10 @@ class DetailView: UIView {
             heroImage.image = detailInfo?.largeImage
             nameLabel.text = detailInfo?.name
             address.text = detailInfo?.streetAddress
+            emailAddress.text = detailInfo?.email
         }
     }
+
 
     let heroImage: UIImageView = {
         let heroImage = UIImageView()
@@ -49,6 +51,18 @@ class DetailView: UIView {
         return address
     }()
 
+    let emailAddress: UILabel = {
+        let email = UILabel()
+        email.textAlignment = .left
+        email.textColor = .secondaryLabel
+        email.font = UIFont.preferredFont(forTextStyle: .title3)
+        email.isUserInteractionEnabled = true
+        email.textColor = .systemBlue
+        
+
+        email.translatesAutoresizingMaskIntoConstraints = false
+        return email
+    }()
 
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
@@ -66,18 +80,43 @@ class DetailView: UIView {
         self.addSubview(nameLabel)
         self.addSubview(address)
 
-        NSLayoutConstraint.activate([
+        if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
+            NSLayoutConstraint.activate([
+                // iPhone constraints
+                heroImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+                heroImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                heroImage.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.3),
+                heroImage.widthAnchor.constraint(equalTo: heroImage.heightAnchor),
 
-            heroImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
-            heroImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            heroImage.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.3),
-            heroImage.widthAnchor.constraint(equalTo: heroImage.heightAnchor),
+                nameLabel.topAnchor.constraint(equalTo: heroImage.bottomAnchor, constant: 20),
+                nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
 
-            nameLabel.topAnchor.constraint(equalTo: heroImage.bottomAnchor, constant: 20),
-            nameLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+                address.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+                address.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor)
+            ])
+            // iPad Constraints
+        } else if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+            nameLabel.textAlignment = .center
+            address.textAlignment = .center
+            self.addSubview(emailAddress)
 
-            address.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            address.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor)
-        ])
+            NSLayoutConstraint.activate([
+                heroImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 100),
+
+                heroImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                heroImage.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.3),
+                heroImage.widthAnchor.constraint(equalTo: heroImage.heightAnchor),
+
+                nameLabel.topAnchor.constraint(equalTo: heroImage.bottomAnchor, constant: 20),
+                nameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+
+                address.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+                address.centerXAnchor.constraint(equalTo: nameLabel.centerXAnchor),
+
+                emailAddress.topAnchor.constraint(equalTo: address.bottomAnchor, constant: 20),
+                emailAddress.centerXAnchor.constraint(equalTo: address.centerXAnchor),
+            ])
+
+        }
     }
 }

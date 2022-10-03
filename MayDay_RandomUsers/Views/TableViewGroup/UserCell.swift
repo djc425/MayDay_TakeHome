@@ -86,7 +86,7 @@ class UserCell: UITableViewCell {
     private func setUpConstraints(){
         //For iPad
         regularConstraints.append(contentsOf: [
-            userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             userImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             userImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
             userImage.heightAnchor.constraint(equalTo: userImage.widthAnchor),
@@ -103,20 +103,17 @@ class UserCell: UITableViewCell {
             userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
             userImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
+            userImage.heightAnchor.constraint(equalTo: userImage.heightAnchor),
 
             userName.topAnchor.constraint(equalTo: userImage.topAnchor, constant: 10),
             userName.leadingAnchor.constraint(equalTo: userImage.trailingAnchor, constant: 25),
 
             emailLabel.leadingAnchor.constraint(equalTo: userName.leadingAnchor),
             emailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
-
         ])
     }
 
     private func layoutBasedOnTrait(traitCollection: UITraitCollection) {
-//        if (!compactConstraints[0].isActive){
-//            NSLayoutConstraint.activate(compactConstraints)
-//        }
 
         if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
             if compactConstraints.count > 0 && compactConstraints[0].isActive {

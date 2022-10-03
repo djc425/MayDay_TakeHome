@@ -13,6 +13,15 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let emailTapGesture = UITapGestureRecognizer(target: self, action: #selector(emailTap(_:)))
+        detailView.emailAddress.addGestureRecognizer(emailTapGesture)
+    }
+
+
+    @objc func emailTap(_ sender: UITapGestureRecognizer){
+        let emailAlert = UIAlertController(title: "Send Email", message: "Would you like to send an email to \(detailView.emailAddress.text ?? "this user")?", preferredStyle: .alert)
+        emailAlert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+        present(emailAlert, animated: true)
     }
 }
 
@@ -21,6 +30,8 @@ extension DetailViewController {
     override func loadView() {
         view = UIView()
         view.addSubview(detailView)
+
+
         view.backgroundColor = .systemPurple
 
         NSLayoutConstraint.activate([
