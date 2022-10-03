@@ -15,7 +15,6 @@ protocol ParsedUserViewModelDelegate: AnyObject {
 
 
 class ParsedUserViewModel {
-
     var networkManager: NetworkManager
 
     var parsedUsers = [ParsedUser]()
