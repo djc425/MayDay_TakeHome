@@ -12,7 +12,7 @@ import UIKit
 struct ParsedUser {
     var name: String
     var email: String
-    var userImageForCell: UIImage
-    var largeImage: UIImage
+    var userImageForCell: UIImage?
+    var largeImage: UIImage?
     var streetAddress: String
 }

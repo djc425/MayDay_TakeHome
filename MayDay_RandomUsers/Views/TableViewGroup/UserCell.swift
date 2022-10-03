@@ -80,10 +80,8 @@ class UserCell: UITableViewCell {
         contentView.addSubview(emailLabel)
     }
 
-
     private var compactConstraints: [NSLayoutConstraint] = []
     private var regularConstraints: [NSLayoutConstraint] = []
-  //  private var sharedConstraints: [NSLayoutConstraint] = []
 
     private func setUpConstraints(){
         //For iPad

@@ -70,8 +70,11 @@ class NetworkManager {
         for user in user.results {
             let userName = "\(user.name.title) \(user.name.first) \(user.name.last)"
             let userEmail = user.email
+
             let userImageMedium = createImage(from: user.picture.medium)
+
             let userImageLarge = createImage(from: user.picture.large)
+
             let userAddress = "\(user.location.street.number) \(user.location.street.name)\n\(user.location.city), \(user.location.state)\n\(user.location.country)"
 
             // Create a new ParsedUser object to be appended into our array
@@ -82,19 +85,18 @@ class NetworkManager {
         return allUsers
     }
 
-    
-   private func createImage(from: String) -> UIImage {
+   private func createImage(from: String) -> UIImage? {
         let image = UIImage()
 
             if let url = URL(string: from) {
 
                 if let data = try? Data(contentsOf: url) {
                     guard let image = UIImage(data: data) else {
-                        return UIImage(systemName: "person")!
+                        return UIImage(systemName: "person")
                     }
                     return image
                 } else {
-                    return UIImage(systemName: "person")!
+                    return UIImage(systemName: "person")
                 }
             }
         return image
