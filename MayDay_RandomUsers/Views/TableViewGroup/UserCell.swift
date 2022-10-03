@@ -84,6 +84,5 @@ class UserCell: UITableViewCell {
             emailLabel.leadingAnchor.constraint(equalTo: userName.leadingAnchor),
             emailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
-
     }
 }
