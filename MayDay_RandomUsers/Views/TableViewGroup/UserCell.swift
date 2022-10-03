@@ -16,7 +16,7 @@ class UserCell: UITableViewCell {
     //Pass this infrom our Tableview delegate methods
      var userInfo: ParsedUser? {
         didSet{
-            userName.text = userInfo?.name
+            userName.text = "\(userInfo?.title ?? "title") \(userInfo?.name ?? "full name")"
             emailLabel.text = userInfo?.email
             userImage.image = userInfo?.userImageForCell
         }

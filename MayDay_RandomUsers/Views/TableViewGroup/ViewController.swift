@@ -99,6 +99,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         let userDetail = userViewModel.parsedUsers[indexPath.row]
 
         detailVC.detailView.detailInfo = userDetail
+
         detailVC.title = userDetail.name
 
         navigationController?.pushViewController(detailVC, animated: true)

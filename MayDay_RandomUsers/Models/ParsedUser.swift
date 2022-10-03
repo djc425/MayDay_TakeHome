@@ -10,6 +10,7 @@ import UIKit
 
 //The object which will be used to populate the UI
 struct ParsedUser {
+    var title: String
     var name: String
     var email: String
     var userImageForCell: UIImage?

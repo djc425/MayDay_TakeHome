@@ -68,14 +68,15 @@ class NetworkManager {
 
         // Go through the Results array from our UserInfo object and save the properties into that of a Parse User
         for user in user.results {
-            let userName = "\(user.name.title) \(user.name.first) \(user.name.last)"
+            let userTitle = user.name.title
+            let userName = "\(user.name.first) \(user.name.last)"
             let userEmail = user.email
             let userImageMedium = createImage(from: user.picture.medium)
             let userImageLarge = createImage(from: user.picture.large)
             let userAddress = "\(user.location.street.number) \(user.location.street.name)\n\(user.location.city), \(user.location.state)\n\(user.location.country)"
 
             // Create a new ParsedUser object to be appended into our array
-            let newUser = ParsedUser(name: userName, email: userEmail, userImageForCell: userImageMedium, largeImage: userImageLarge, streetAddress: userAddress)
+            let newUser = ParsedUser(title: userTitle, name: userName, email: userEmail, userImageForCell: userImageMedium, largeImage: userImageLarge, streetAddress: userAddress)
 
             allUsers.append(newUser)
         }
