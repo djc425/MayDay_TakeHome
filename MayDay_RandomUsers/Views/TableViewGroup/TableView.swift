@@ -45,6 +45,7 @@ class TableView: UIView {
     private func configureTableView(){
         self.backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
+        self.backgroundColor = .systemOrange.withAlphaComponent(0.2)
         self.addSubview(tableView)
         self.addSubview(loadingSpinner)
         self.layer.cornerRadius = 35

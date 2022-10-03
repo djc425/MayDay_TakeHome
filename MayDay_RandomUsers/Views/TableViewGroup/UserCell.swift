@@ -24,12 +24,19 @@ class UserCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureLayout()
+        configureUI()
+        setUpConstraints()
+        layoutBasedOnTrait(traitCollection: UIScreen.main.traitCollection)
         self.accessoryType = .disclosureIndicator
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layoutBasedOnTrait(traitCollection: traitCollection)
     }
 
     //MARK: Cell's 3 UI properties
@@ -63,7 +70,7 @@ class UserCell: UITableViewCell {
 
 
     //MARK: Configure the layout of the cell
-    private func configureLayout(){
+    private func configureUI(){
         self.backgroundColor = .clear
         self.selectedBackgroundView?.backgroundColor = .systemGray.withAlphaComponent(0.1)
         self.layer.cornerRadius = 20
@@ -71,8 +78,29 @@ class UserCell: UITableViewCell {
         contentView.addSubview(userImage)
         contentView.addSubview(userName)
         contentView.addSubview(emailLabel)
+    }
 
-        NSLayoutConstraint.activate([
+
+    private var compactConstraints: [NSLayoutConstraint] = []
+    private var regularConstraints: [NSLayoutConstraint] = []
+  //  private var sharedConstraints: [NSLayoutConstraint] = []
+
+    private func setUpConstraints(){
+        //For iPad
+        regularConstraints.append(contentsOf: [
+            userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            userImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            userImage.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25),
+            userImage.heightAnchor.constraint(equalTo: userImage.widthAnchor),
+
+            userName.topAnchor.constraint(equalTo: userImage.bottomAnchor, constant: 10),
+            userName.centerXAnchor.constraint(equalTo: userImage.centerXAnchor),
+
+            emailLabel.topAnchor.constraint(equalTo: userName.bottomAnchor, constant: 10),
+            emailLabel.centerXAnchor.constraint(equalTo: userImage.centerXAnchor),
+        ])
+        // for iPhone
+        compactConstraints.append(contentsOf: [
             userImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             userImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             userImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5),
@@ -83,6 +111,26 @@ class UserCell: UITableViewCell {
 
             emailLabel.leadingAnchor.constraint(equalTo: userName.leadingAnchor),
             emailLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+
         ])
+    }
+
+    private func layoutBasedOnTrait(traitCollection: UITraitCollection) {
+//        if (!compactConstraints[0].isActive){
+//            NSLayoutConstraint.activate(compactConstraints)
+//        }
+
+        if traitCollection.horizontalSizeClass == .regular && traitCollection.verticalSizeClass == .regular {
+            if compactConstraints.count > 0 && compactConstraints[0].isActive {
+                NSLayoutConstraint.deactivate(compactConstraints)
+            }
+            NSLayoutConstraint.activate(regularConstraints)
+
+        } else if traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .regular {
+            if regularConstraints.count > 0 && regularConstraints[0].isActive {
+                NSLayoutConstraint.deactivate(regularConstraints)
+            }
+            NSLayoutConstraint.activate(compactConstraints)
+        }
     }
 }
