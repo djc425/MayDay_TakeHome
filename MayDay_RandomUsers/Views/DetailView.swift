@@ -10,6 +10,7 @@ import UIKit
 
 class DetailView: UIView {
 
+    // DetailInfo variable which will populate the UI. This is sent from the selected user from the TableView
     var detailInfo: ParsedUser? {
         didSet {
             heroImage.image = detailInfo?.largeImage
@@ -19,6 +20,7 @@ class DetailView: UIView {
         }
     }
 
+    //MARK: Properties of DetailView
     let heroImage: UIImageView = {
         let heroImage = UIImageView()
         heroImage.contentMode = .scaleAspectFit
@@ -74,6 +76,7 @@ class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Configure details of DetailView
     private func configureDetails(){
         self.translatesAutoresizingMaskIntoConstraints = false
 
@@ -84,6 +87,7 @@ class DetailView: UIView {
         self.layer.cornerRadius = 35
         self.layer.masksToBounds = true
 
+        //MARK: Contstraints based on device
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
             NSLayoutConstraint.activate([
                 // iPhone constraints
@@ -121,7 +125,6 @@ class DetailView: UIView {
                 emailAddress.topAnchor.constraint(equalTo: address.bottomAnchor, constant: 20),
                 emailAddress.centerXAnchor.constraint(equalTo: address.centerXAnchor),
             ])
-
         }
     }
 }
