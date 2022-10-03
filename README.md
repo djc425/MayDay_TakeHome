@@ -8,3 +8,5 @@ When you open the project you’ll see that a TableView of users is displayed. T
 I also pushed myself to include two different layouts depending on if this is viewed on an iPad or iPhone using the UITraitCollection methods.
 
 This was a fun one to build and I’m looking forward to hearing yours and the teams thoughts.
+
+Thank you again for the opportunity to share this take home exercise with you. 
