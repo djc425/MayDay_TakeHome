@@ -89,6 +89,7 @@ class DetailView: UIView {
 
         //MARK: Contstraints based on device
         if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone) {
+            self.backgroundColor = .systemOrange.withAlphaComponent(0.3)
             NSLayoutConstraint.activate([
                 // iPhone constraints
                 heroImage.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
@@ -104,6 +105,7 @@ class DetailView: UIView {
             ])
             // iPad Constraints
         } else if (UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad) {
+            self.backgroundColor = .systemGray3
             nameLabel.textAlignment = .center
             address.textAlignment = .center
             // If the user is on an iPad we'll add the emailAddress so they can tap and send an email (note that it currently shows alert as placeholder)
